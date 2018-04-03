@@ -1,14 +1,7 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Sat Mar 31 17:11:54 2018
-
-@author: Pooja
-"""
-
 from pickle import dump
 import os
 import string
-path='C:/Users/Lenovo/Desktop/iadap/3-2/Project/cnn/'
+path = "/media/prachi/New Volume/3-2/LOP/Dataset/cnn_stories_tokenized/"
 
 def separate(doc):
     index=doc.find('@highlight') 
@@ -25,11 +18,11 @@ def load_file(path):
         doc=story_name.read()
         story_name.close()
         story, highlights = separate(doc)
-        stories.append({'s':stories} , {'h':highlights})
-        return stories
+        stories.append({'s':story , 'h':highlights})
+    return stories
         
 def clean_data(lines):
-    new_lines = lines()
+    new_lines = list()
     #If three arguments are passed, each character in the third argument is mapped to None
     table = str.maketrans('', '', string.punctuation)
     for line in lines:
@@ -50,5 +43,4 @@ for story in stories:
     story['s'] = clean_data(story['s'].split('\n'))
     story['h'] = clean_data(story['h']) 
     
-dump(stories, open('cnn_dataset.pkl', 'wb'))    
-    
+dump(stories, open('cnn_dataset.pkl', 'wb+')) 
